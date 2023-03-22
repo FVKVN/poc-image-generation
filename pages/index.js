@@ -5,7 +5,6 @@ import styles from './index.module.css';
 
 export default function Home() {
     const [passengersObject, setPassengersObject] = useState("");
-    const [requested, setRequested] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState();
 
@@ -28,7 +27,6 @@ export default function Home() {
             }
 
             setResult(data.image_url);
-            setRequested(true);
             setPassengersObject("");
         } catch(error) {
             // Consider implementing your own error handling logic here
@@ -45,11 +43,12 @@ export default function Home() {
             </Head>
 
             <main className={styles.main} style={{
-                backgroundImage: `url(${requested ? result : defaultImagePath})`
+                backgroundImage: `url(${result ? result : defaultImagePath})`
             }}>
+
                 <form onSubmit={onSubmit}>
                     <h3 className={styles.prompt}>
-                        Ik zit op de tram samen met
+                        Ik zit op de tram samen met een
                         <input
                             type="text"
                             name="passengersObject"
@@ -59,9 +58,12 @@ export default function Home() {
                             onChange={(e) => setPassengersObject(e.target.value)}
                         />
                     </h3>
-                    <button className={styles.submit} type="submit">
-                        Genereer afbeelding
-                    </button>
+                    { result &&
+                        <button className={styles.submit} type="submit">
+                            Genereer afbeelding
+                        </button>
+                    }
+
                 </form>
             </main>
         </div>

@@ -6,7 +6,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const backgroundDescription = 'The inside of a tram wagon with a';
+const backgroundDescription = 'Foto vanuit het oogpunt van een persoon op de tram die een ziet';
 
 export default async function (req, res) {
     if (!configuration.apiKey) {
@@ -32,7 +32,7 @@ export default async function (req, res) {
         const imageEdit = await openai.createImageEdit(
             fs.createReadStream('public/assets/original.png'),
             fs.createReadStream('public/assets/mask.png'),
-            `${backgroundDescription} ${passengersObject}`,
+            generateDescription(passengersObject),
             1,
             "1024x1024"
         );
@@ -54,3 +54,6 @@ export default async function (req, res) {
     }
 }
 
+function generateDescription(passengersObject) {
+    return `Foto vanuit het oogpunt van een persoon op de tram die een ${passengersObject} ziet.`
+}
