@@ -58,7 +58,7 @@ export default function Home() {
                     {!result && !isLoading &&
                         <form onSubmit={onSubmit}>
                             <h3 className={styles.prompt}>
-                                Ik zit op de tram samen met een
+                                I'm sitting on a tram together with
                                 <input
                                     type="text"
                                     name="passengersObject"
@@ -70,7 +70,7 @@ export default function Home() {
                             </h3>
                             { !result &&
                                 <button className={styles.btn} type="submit">
-                                    Genereer afbeelding
+                                    Generate
                                 </button>
                             }
                         </form>
@@ -84,13 +84,13 @@ export default function Home() {
                         result && !isLoading &&
                         <>
                             <h3 className={styles.prompt}>
-                                Ik zit op de tram samen met een {passengersObject}
+                            I'm sitting on a tram together with a {passengersObject}
                             </h3>
                             <button className={styles.btn} onClick={resetForm}>
-                                Opnieuw
+                                Again
                             </button>
                             <a href={generateShareUrl(result)} className={styles.btn} target="_blank">
-                                Deel op facebook
+                                Share
                             </a>
                         </>
                     }

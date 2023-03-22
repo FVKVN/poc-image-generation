@@ -54,5 +54,5 @@ export default async function (req, res) {
 }
 
 function generateDescription(passengersObject) {
-    return `Foto vanuit het oogpunt van een persoon op de tram die een ${passengersObject} ziet.`
+    return `Picture from the point of view of a person sitting in a subway cart seeing ${passengersObject}.`
 }
