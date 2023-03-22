@@ -6,7 +6,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const backgroundDescription = 'Foto vanuit het oogpunt van een persoon op de tram die een ziet';
 
 export default async function (req, res) {
     if (!configuration.apiKey) {

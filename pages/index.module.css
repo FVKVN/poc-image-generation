@@ -23,45 +23,40 @@
 }
 .main {
     min-height: 100vh;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    flex-direction: row;
 }
+
 .main .icon {
     width: 34px;
+}
+
+.main .formHolder {
+    padding: 60px;
+    flex: 1 1 auto;
+    background-color: yellow;
 }
 
 .main form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
     width: 100%;
 }
 
 .main ::placeholder {
-    color: #ffffff;
+    color: #000;
     opacity: 1;
 }
 
-.main .result {
-    font-weight: bold;
-    margin-top: 40px;
-}
-
 .main .prompt {
-    margin: 0;
-    color: #fff;
+    margin: 0 0 30px 0;
+    color: #000;
     font-size: 32px;
     line-height: 40px;
     font-weight: bold;
     text-align: center;
-    text-shadow: 2px 2px 10px black;
 }
 
 .main .input {
@@ -72,25 +67,42 @@
     border: none;
     font-size: 32px;
     border: 3px solid transparent;
-    border-bottom: 3px solid #fff;
+    border-bottom: 3px solid #000;
     outline: none;
-    color: yellow;
+    color: #000;
     text-align: center;
-    text-shadow: 2px 2px 10px black;
 }
 
 .main .input:focus {
-    border: 3px solid yellow;
+    border: 3px solid #000;
 }
 
-.main .submit {
+.main .btn {
+    margin: 30px 0 0 0;
+    display: block;
+    width: 100%;
+
     font-size: 26px;
     font-weight: bold;
-    color: #fff;
-    text-shadow: 2px 2px 10px black;
+    color: #000;
     background: transparent;
-    border: 3px solid #fff;
+    border: 3px solid #000;
     padding: 20px 30px;
+    text-decoration: none;
+    text-align: center;
 
     cursor: pointer;
+}
+
+.main .result {
+    display: block;
+    height: 100%;
+    width: 100%;
+    max-width: none;
+
+    object-fit: cover
+}
+
+.main .resultHolder {
+    flex: 0 0 60%;
 }

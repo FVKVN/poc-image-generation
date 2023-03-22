@@ -12,6 +12,7 @@ export default function Home() {
 
     async function onSubmit(event) {
         event.preventDefault();
+        setIsLoading(true);
         try {
             const response = await fetch("/api/generate", {
                 method: "POST",
@@ -25,47 +26,81 @@ export default function Home() {
             if (response.status !== 200) {
                 throw data.error || new Error(`Request failed with status ${response.status}`);
             }
-
+            setIsLoading(false);
             setResult(data.image_url);
-            setPassengersObject("");
         } catch(error) {
             // Consider implementing your own error handling logic here
             console.error(error);
             alert(error.message);
+            setIsLoading(false);
         }
+    }
+
+    function generateShareUrl(result) {
+        return `https://www.facebook.com/sharer/sharer.php?u=${result}`;
+    }
+
+    function resetForm(e) {
+        e.preventDefault();
+
+        setResult(null);
+        setPassengersObject('');
     }
 
     return (
         <div>
             <Head>
                 <title>OpenAI Quickstart</title>
-                <link rel="icon" href="/dog.png" />
             </Head>
 
-            <main className={styles.main} style={{
-                backgroundImage: `url(${result ? result : defaultImagePath})`
-            }}>
-
-                <form onSubmit={onSubmit}>
-                    <h3 className={styles.prompt}>
-                        Ik zit op de tram samen met een
-                        <input
-                            type="text"
-                            name="passengersObject"
-                            placeholder="voeg een object toe"
-                            className={styles.input}
-                            value={passengersObject}
-                            onChange={(e) => setPassengersObject(e.target.value)}
-                        />
-                    </h3>
-                    { result &&
-                        <button className={styles.submit} type="submit">
-                            Genereer afbeelding
-                        </button>
+            <main className={styles.main}>
+                <div className={styles.formHolder}>
+                    {!result && !isLoading &&
+                        <form onSubmit={onSubmit}>
+                            <h3 className={styles.prompt}>
+                                Ik zit op de tram samen met een
+                                <input
+                                    type="text"
+                                    name="passengersObject"
+                                    placeholder="voeg een object toe"
+                                    className={styles.input}
+                                    value={passengersObject}
+                                    onChange={(e) => setPassengersObject(e.target.value)}
+                                />
+                            </h3>
+                            { !result &&
+                                <button className={styles.btn} type="submit">
+                                    Genereer afbeelding
+                                </button>
+                            }
+                        </form>
                     }
+                    {isLoading &&
+                        <p className={styles.loadingText}>
+                            Loading
+                        </p>
+                    }
+                    {
+                        result && !isLoading &&
+                        <>
+                            <h3 className={styles.prompt}>
+                                Ik zit op de tram samen met een {passengersObject}
+                            </h3>
+                            <button className={styles.btn} onClick={resetForm}>
+                                Opnieuw
+                            </button>
+                            <a href={generateShareUrl(result)} className={styles.btn} target="_blank">
+                                Deel op facebook
+                            </a>
+                        </>
+                    }
+                </div>
+                <aside className={styles.resultHolder}>
+                    <img className={styles.result} src={result ? result : defaultImagePath} alt="" />
+                </aside>
 
-                </form>
             </main>
         </div>
     );
 }
+
